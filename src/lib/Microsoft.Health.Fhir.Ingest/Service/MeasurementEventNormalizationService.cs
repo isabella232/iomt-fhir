@@ -120,8 +120,17 @@ namespace Microsoft.Health.Fhir.Ingest.Service
 
             await consumer.Completion
                 .ContinueWith(
-                    task =>
+                    async task =>
                     {
+                        try
+                        {
+                            await collector.FlushAsync(cts.Token);
+                        }
+                        catch (Exception ex)
+                        {
+                            exceptions.Add(ex);
+                        }
+
                         if (!exceptions.IsEmpty)
                         {
                             throw new AggregateException(exceptions);
