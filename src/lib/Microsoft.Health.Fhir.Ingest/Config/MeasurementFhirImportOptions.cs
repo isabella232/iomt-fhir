@@ -13,7 +13,7 @@ namespace Microsoft.Health.Fhir.Ingest.Config
     {
         public virtual ParallelTaskOptions ParallelTaskOptions { get; } = new ParallelTaskOptions { MaxConcurrency = 10 };
 
-        public virtual ExceptionTelemetryProcessor ExceptionService { get; } = new ExceptionTelemetryProcessor();
+        public virtual FhirExceptionTelemetryProcessor ExceptionService { get; } = new FhirExceptionTelemetryProcessor();
 
         public virtual ITemplateFactory<string, ITemplateContext<ILookupTemplate<IFhirTemplate>>> TemplateFactory { get; } = CollectionFhirTemplateFactory.Default;
     }

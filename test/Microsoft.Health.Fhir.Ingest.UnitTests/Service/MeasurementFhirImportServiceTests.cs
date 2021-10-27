@@ -94,9 +94,11 @@ namespace Microsoft.Health.Fhir.Ingest.Service
         {
             var log = Substitute.For<ITelemetryLogger>();
             var options = BuildMockOptions();
-            options.ExceptionService.HandleException(null, null, null).ReturnsForAnyArgs(true);
 
             var exception = new InvalidOperationException();
+
+            options.ExceptionService.HandleException(exception, log, default(Metric), default(Metric)).ReturnsForAnyArgs(true);
+
             var fhirService = Substitute.For<FhirImportService>();
             fhirService.ProcessAsync(default, default).ReturnsForAnyArgs(Task.FromException(exception));
 
@@ -108,7 +110,7 @@ namespace Microsoft.Health.Fhir.Ingest.Service
 
             options.TemplateFactory.Received(1).Create(string.Empty);
             await fhirService.ReceivedWithAnyArgs(2).ProcessAsync(default, default);
-            options.ExceptionService.Received(2).HandleException(exception, log, ConnectorOperation.FHIRConversion);
+            options.ExceptionService.Received(2).HandleException(exception, log, Arg.Any<Metric>(), Arg.Any<Metric>());
         }
 
         [Fact]
@@ -200,7 +202,7 @@ namespace Microsoft.Health.Fhir.Ingest.Service
 
         private MeasurementFhirImportOptions BuildMockOptions()
         {
-            var exceptionProcessor = Substitute.For<ExceptionTelemetryProcessor>();
+            var exceptionProcessor = Substitute.For<FhirExceptionTelemetryProcessor>();
             var templateFactory = Substitute.For<ITemplateFactory<string, ITemplateContext<ILookupTemplate<IFhirTemplate>>>>();
             var parallelTaskOptions = new ParallelTaskOptions();
 
