@@ -3,6 +3,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<CodeAnalysisRuleSet>..\..\..\CustomAnalysisRules.ruleset</CodeAnalysisRuleSet>
 		<RootNamespace>Microsoft.Health.Expressions</RootNamespace>
+		<LangVersion>10.0</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<IsPackable>true</IsPackable>

@@ -5,7 +5,7 @@
     <HighEntropyVA>true</HighEntropyVA>
     <AssemblyName>Microsoft.Health.Fhir.Ingest.Validation</AssemblyName>
     <RootNamespace>Microsoft.Health.Fhir.Ingest.Validation</RootNamespace>
-    <langversion>8.0</langversion>
+    <langversion>10.0</langversion>
     <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
   <PropertyGroup>
