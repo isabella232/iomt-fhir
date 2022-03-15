@@ -42,7 +42,7 @@ namespace Microsoft.Health.Extensions.Fhir
             return serviceCollection;
         }
 
-        public static void AddAuthenticationHandler(
+        public static IHttpClientBuilder AddAuthenticationHandler(
            this IHttpClientBuilder httpClientBuilder,
            IServiceCollection services,
            Uri uri,
@@ -64,6 +64,8 @@ namespace Microsoft.Health.Extensions.Fhir
                 httpClientBuilder.AddHttpMessageHandler(sp =>
                     new BearerTokenAuthorizationMessageHandler(uri, sp.GetRequiredService<OAuthConfidentialClientAuthService>(), sp.GetRequiredService<ITelemetryLogger>()));
             }
+
+            return httpClientBuilder;
         }
     }
 }
